@@ -1,10 +1,12 @@
 const _services = require("./streetlight.services");
-
+const moment = require('moment')
 module.exports.createStreetLight = async (req, res, next) => {
   try {
-    let dataurl =
-      "http://msdtelematics.com/apidata?data=862818048766085,45,12.1,1.2,15.7,18.9,1.2,23.3,9.7,1.2,56.8,1,2,3,4,00.90,00.80,5,6,7,8";
-    let data = dataurl.split("=")[1].split(",");
+    // let dataurl =
+    //   "http://msdrms.in/create-streetlight?data=SSL865933034895736,074,13.5,0.69,09.3,13.7,0.50,06.8,00.0,0.00,00.0,1,0,0,0,STP";
+    let data = req.query.data
+    data = data.split(",");
+    const todaysDate = Date.now()
     let data2 = {
       IMEINumber: data[0],
       Battery_Percent: data[1],
@@ -21,7 +23,9 @@ module.exports.createStreetLight = async (req, res, next) => {
       Battery_Low: data[12],
       System_Fault: data[13],
       Overload: data[14],
-      STP: "STP",
+      STP: data[15],
+      date: moment(todaysDate).format('YYYY-MM-DD'),
+      time: moment(todaysDate).format('hh:mm:ss A')
     };
     console.log(data2);
     const response = await _services.doCreateStreetLight(data2);

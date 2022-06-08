@@ -22,6 +22,12 @@ const streetlight = schema(
     System_Fault: {},
     Overload: {},
     STP: {},
+    date: {
+      type: String,
+    },
+    time: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
