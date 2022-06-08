@@ -27,7 +27,6 @@ module.exports.createStreetLight = async (req, res, next) => {
       date: moment(todaysDate).format('YYYY-MM-DD'),
       time: moment(todaysDate).format('hh:mm:ss A')
     };
-    console.log(data2);
     const response = await _services.doCreateStreetLight(data2);
     res.status(response.statusCode).json(response);
   } catch (err) {
